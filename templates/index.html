@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Q&A</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DocuTalk Assist: Conversational Document Query with Speech Interaction</h1>
+        <div class="upload-section">
+            <h2>Upload Document</h2>
+            <form id="upload-form" class="form">
+                <input type="file" id="file-input" name="file" class="input-file" required>
+                <button type="button" onclick="uploadFile()" class="btn">Upload</button>
+            </form>
+        </div>
+        <div class="question-section">
+            <h2>Ask a Question</h2>
+            <form id="question-form" class="form">
+                <input type="text" id="query" name="question-text" class="input-text" placeholder="Type your question..." required>
+                <button type="button" onclick="askQuestion()" class="btn">Ask</button>
+                <input type="button" id="start" class="btn show" value="Speak" />
+                <input type="button" id="stop" class="btn hide" value="Stop" />
+            </form>
+        </div>
+        <div class="answer-section hide">
+            <h2>Answer</h2>
+            <div id="answer" class="answer-box"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
+
