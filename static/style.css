@@ -1,9 +1,9 @@
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
-    margin: 0;
+    /* margin: 0;
     padding: 0;
-    display: flex;
+    display: flex; */
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -13,10 +13,16 @@ body {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 520px;
+    padding: 30px;
+    width: 600px;
     text-align: center;
     transition: all 0.3s ease;
+    position: absolute;
+    /* margin-top: 10%; */
+    top: 5%;
+    height: auto;
+    /* left: 50%;
+    transform: translate(-50%, -50%); */
 }
 
 .container:hover {
@@ -72,6 +78,7 @@ h2 {
 
 .answer-section {
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .answer-box {
@@ -83,10 +90,128 @@ h2 {
     text-align: left;
     color: #333333;
     font-size: 14px;
+    max-height: 450px;
+    overflow-x: auto;
 }
 .show {
     display: inline-block;
 }
 .hide {
     display: none;
+}
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    right: 20px;
+    font-size: 17px;
+    opacity: 0;
+    transition: opacity 0.5s, top 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    top: 40px;
+}
+
+.toast.hide {
+    opacity: 0;
+    top: 20px;
+}
+
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+button:disabled {
+    background-color: #cccccc; /* Example of disabled state */
+    color: #666666;
+    cursor: not-allowed;
+}
+.bg-black {
+    background-color: #000 !important;
+}
+.flex-column {
+    flex-direction: column !important;
+}
+.d-flex {
+    display: flex !important;
+}
+
+.navbar-brand {
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: inherit;
+    margin-right: 1rem;
+    padding-bottom: .3125rem;
+    padding-top: .3125rem;
+    white-space: nowrap;
+}
+.logo {
+    height: 46px;
+    margin-right: 10px;
+}
+.container {
+    position: relative;
+    text-align: center;
+}
+.bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+.centered {
+    margin: auto;
+}
+.topnav {
+    overflow: hidden;
+}
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }

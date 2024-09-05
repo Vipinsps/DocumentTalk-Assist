@@ -65,18 +65,8 @@ def ask():
                 loader = TextLoader(file_path, encoding='latin-1')
 
         else:
-          loader = TextLoader('uploads/GK-15.txt')
+            return jsonify({'error': 'File not found!'}), 400
         raw_documents = loader.load()
-
-        # 2. Prepare the Chat Prompt Template
-        prompt = ChatPromptTemplate.from_template("""
-        Answer the following question based only on the provided context:
-
-        <context>
-        {context}
-        </context>
-
-        Question: {input}""")
 
         text_splitter = RecursiveCharacterTextSplitter()
         documents = text_splitter.split_documents(raw_documents)
@@ -86,16 +76,22 @@ def ask():
     except UnicodeDecodeError:
         return "File encoding error", 500
     
-    # 5. Build the Retrieval Chain
+    # Chat Prompt Template
+    prompt = ChatPromptTemplate.from_template("""
+    Answer the following question based only on the provided context:
+
+    <context>
+    {context}
+    </context>
+
+    Question: {input}""")
+
+    # Retrieval Chain
     retriever = vector.as_retriever()
     document_chain = create_stuff_documents_chain(llm, prompt)
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
 
-    # Here, we create two chains:
-    #   - Retrieval Chain: This retrieves the most relevant question and its context based on the user's input question using the document embeddings.
-    #   - Document Chain: This chain uses the LLM to answer the user's question based on the retrieved context.
-
-    # 6. User Input and Response Generation
+    # Generate response with user query
     response = retrieval_chain.invoke({"input": query})
     print(response["answer"])
 
@@ -104,11 +100,11 @@ def ask():
     return jsonify({"answer": response["answer"]})
 
 @app.route('/play_answer', methods=['POST'])
-def play_answer(query):
-    time.sleep(5)
+def play_answer(answer):
+    time.sleep(1)
     
     # Convert text to speech using gTTS
-    tts = gTTS(query, lang='en')
+    tts = gTTS(answer, lang='en')
     audio_path = 'response.mp3'
     tts.save(audio_path)
 
